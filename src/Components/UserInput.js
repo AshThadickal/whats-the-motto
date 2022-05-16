@@ -12,7 +12,7 @@ const UserInput = () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: 'Bearer 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'
+                Authorization: `Bearer ${process.env.REACT_APP_OPENAI_SECRET}`
             },
             body: JSON.stringify(data)
         }).then(res => res.json())
