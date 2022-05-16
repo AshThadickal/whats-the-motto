@@ -1,9 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
+import UserInput from './Components/UserInput';
 
 function App() {
   return (
     <div className="App">
+      <UserInput />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
