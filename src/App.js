@@ -17,7 +17,6 @@ function App() {
     setApiResults([...apiResults, data])
 
     const database = getDatabase(firebase);
-    console.log(database)
     const dbRef = ref(database);
     push(dbRef, data)
   })

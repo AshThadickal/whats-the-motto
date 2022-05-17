@@ -6,7 +6,7 @@ const UserInput = (props) => {
     const [userInput, setUserInput] = useState('');
     // const [searchTerm, setSearchTerm] = useState('')
     const [promptError, setPromptError] = useState(false);
-    const [alphaError, setAlphaError] = useState(false);
+    // const [alphaError, setAlphaError] = useState(false);
     const [networkError, setNetworkError] = useState(false);
 
     const handleInput = (event) => {
@@ -23,11 +23,9 @@ const UserInput = (props) => {
         }
     }
 
-    console.log(promptError)
-
     const search = (userQuery) => {
         const data = {
-            prompt: `Provide a motto for ${userQuery}`,
+            prompt: `Provide a slogan for ${userQuery}`,
             temperature: 0.5,
             max_tokens: 64,
             top_p: 1.0,
@@ -43,7 +41,16 @@ const UserInput = (props) => {
             },
             body: JSON.stringify(data)
         })
-            .then(res => res.json())
+            .then(res => {
+                if(res.statusText === 'OK') {
+                    return res.json()
+                } else {
+                    throw new Error();
+                }
+            }).catch(error => {
+                setNetworkError(true);
+            })
+            // .then(res => res.json())
             .then(jsonRes => {
                 props.resultsArray({
                     userSearch: userQuery,
@@ -56,17 +63,17 @@ const UserInput = (props) => {
         <main>
             <section className='userInput'>
                 <h2>How to Use</h2>
-                <p>Enter information about the shop you are opening and hit submit!</p>
-                <p>Looking for guidance? How about a bubblegum store that sells the classics.</p>
+                <p>Enter some information about your store below and click the search button. A list will appear with some suggested slogans! Feel free to mull them over - the results will be here when you come back. You can also remove any you do not like.</p>
+
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="userInput">Please enter your search:</label>
-                    <input onChange={handleInput} type='text' id='userInput' value={userInput}></input>
+                    <input onChange={handleInput} type='text' id='userInput' value={userInput} placeholder='A sneaker store that only sells the classics'></input>
                     <button className='searchButton'>Search</button>
                 </form>
             </section>
 
             <section className='errors'>
-                <ErrorPopup promptError={promptError} alphaError={alphaError} networkError={networkError} />
+                <ErrorPopup promptError={promptError} setPromptError={setPromptError} networkError={networkError} setNetworkError={setNetworkError} />
             </section>
         </main>
     )

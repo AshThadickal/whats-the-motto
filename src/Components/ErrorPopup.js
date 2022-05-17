@@ -1,16 +1,19 @@
-const ErrorPopup = ({promptError, alphaError, networkError}) => {
+const ErrorPopup = ({promptError, alphaError, networkError, setPromptError, setNetworkError}) => {
 
-    const noPrompt = (<p>Please enter a prompt and try again.</p>);
-    const noAlpha = <p>Please try again! Can only contain letters a-z.</p>
-    const noNetwork = <p>Sorry, there was an error with the Network. Please try again later.</p>
-
-    console.log(promptError)
+    const noPrompt = <div className="errorPopupInner">
+                        <p>Please enter a prompt and try again.</p>
+                        <button className="closePopup" onClick={() => { setPromptError(false);}}>Close</button>
+                    </div>;
+    // const noAlpha = <p>Please try again! Can only contain letters a-z.</p>
+    const noNetwork = <div className="errorPopupInner">
+                        <p>Sorry, there was an error with the Network. Please try again later.</p>
+                        <button className="closePopup" onClick={() => { setNetworkError(false); }}>Close</button>
+                     </div>
 
     return (
-        <div className="errorPopup">
+        <div className="errorPopupOuter">
             {promptError && noPrompt}
-            {alphaError && noAlpha}
-            {networkError && noNetwork}
+            {networkError && noNetwork}     
         </div>
     )
 }

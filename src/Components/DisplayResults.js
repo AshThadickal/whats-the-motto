@@ -6,6 +6,13 @@ import { useEffect, useState } from "react";
 const DisplayResults = () => {
     const [returnedMotto, setReturnedMotto] = useState([]);
 
+    const handleRemove = (mottoKey) => {
+        const database = getDatabase(firebase);
+        const dbRef = ref(database, `/${mottoKey}`);
+        remove(dbRef);
+        console.log(mottoKey)
+    }
+
     useEffect(() => {
         const database = getDatabase(firebase);
         const dbRef = ref(database);
@@ -21,12 +28,15 @@ const DisplayResults = () => {
     }, [])
 
     return(
-        <section className="results">
+        <section className="allResults">
             {returnedMotto.slice(0).reverse().map((motto) => {
                 return(
-                    <div className="resultsContainer" key={motto.key}>
-                        <h3>{motto.userSearch}</h3>
-                        <p>{motto.theMotto}</p>
+                    <div className="resultsContainer"key={motto.key}>
+                        <div className="results">
+                            <h3>{motto.userSearch}</h3>
+                            <p>{motto.theMotto}</p>
+                        </div>
+                        <button onClick={() => {handleRemove(motto.key)}}>Remove from List</button>
                     </div>
                 )
             })}
