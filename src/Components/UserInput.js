@@ -25,7 +25,7 @@ const UserInput = (props) => {
     const apiSearch = (userQuery) => {
         const data = {
             prompt: `Provide a slogan for ${userQuery}`,
-            temperature: 0.8,
+            temperature: 0.5,
             max_tokens: 64,
             top_p: 1.0,
             frequency_penalty: 0.0,
@@ -42,12 +42,12 @@ const UserInput = (props) => {
         })
             .then(res => {
                 if(res.statusText === 'OK') {
-                    // setPromptError(false)
                     return res.json()
                 } else {
                     throw new Error();
                 }
             }).catch(error => {
+                console.log(error)
                 if(error) {
                     setNetworkError(true);
                 }
