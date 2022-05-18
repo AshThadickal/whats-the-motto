@@ -28,12 +28,13 @@ const DisplayResults = () => {
     }, [])
 
     return(
-        <section className="allResults">
+        <section className="allResults wrapper">
+            <h3>New Slogan Options!</h3>
             {returnedMotto.slice(0).reverse().map((motto) => {
                 return(
-                    <div className="resultsContainer"key={motto.key}>
+                    <div className="resultsContainer" key={motto.key}>
                         <div className="results">
-                            <h3>{motto.userSearch}</h3>
+                            <p><span className='bold'>Store Info:</span> {motto.userSearch}</p>
                             <p>{motto.theMotto}</p>
                         </div>
                         <button onClick={() => {handleRemove(motto.key)}}>Remove from List</button>

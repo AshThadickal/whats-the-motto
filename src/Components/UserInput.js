@@ -61,18 +61,18 @@ const UserInput = (props) => {
 
     return(
         <main>
-            <section className='userInput'>
+            <section className='userInput wrapper'>
                 <h2>How to Use</h2>
                 <p>Enter some information about your store below and click the search button. A list will appear with some suggested slogans! Feel free to mull them over - the results will be here when you come back. You can also remove any you do not like.</p>
 
                 <form onSubmit={handleSubmit}>
-                    <label htmlFor="userInput">Please enter your search:</label>
-                    <input onChange={handleInput} type='text' id='userInput' value={userInput} placeholder='A sneaker store that only sells the classics'></input>
+                    <label className='sr-only'htmlFor="userInput">Store Info Here:</label>
+                    <textarea onChange={handleInput} id='userInput' value={userInput} placeholder='i.e. a sneaker store that only sells Air Jordans' rows={5}></textarea>
                     <button className='searchButton'>Search</button>
                 </form>
             </section>
 
-            <section className='errors'>
+            <section className='errors wrapper'>
                 <ErrorPopup promptError={promptError} setPromptError={setPromptError} networkError={networkError} setNetworkError={setNetworkError} />
             </section>
         </main>

@@ -1,4 +1,4 @@
-import './App.css';
+import './styles/Sass/App.css';
 import Header from './Components/Header';
 import UserInput from './Components/UserInput';
 import DisplayResults from './Components/DisplayResults';
@@ -22,7 +22,7 @@ function App() {
   })
 
   return (
-    <div className="App">
+    <div className='App'>
       <Header />
       <UserInput resultsArray={resultsArray}/>
       <DisplayResults apiResults={apiResults}/>
@@ -32,3 +32,8 @@ function App() {
 }
 
 export default App;
+
+// Photo by <a href="https://unsplash.com/@__itsflores?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Omar Flores</a> on <a href="https://unsplash.com/s/photos/pattern?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a> - lego
+
+// Photo by < a href = "https://unsplash.com/es/@woods?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" > Joe Woods</a > on < a href = "https://unsplash.com/s/photos/wall?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" > Unsplash</a > - white bricks
+
