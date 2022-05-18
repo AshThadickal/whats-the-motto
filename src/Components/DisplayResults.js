@@ -1,28 +1,28 @@
-// import { useState } from "react"
+import { useEffect, useState } from "react";
 import firebase from "./firebase";
 import { getDatabase, ref, onValue, remove, onDisconnect } from 'firebase/database';
-import { useEffect, useState } from "react";
 
 const DisplayResults = () => {
-    const [returnedMotto, setReturnedMotto] = useState([]);
+    const [returnedSlogan, setReturnedSlogan] = useState([]);
 
-    const handleRemove = (mottoKey) => {
+    // Function to remove slogan
+    const handleRemove = (sloganKey) => {
         const database = getDatabase(firebase);
-        const dbRef = ref(database, `/${mottoKey}`);
+        const dbRef = ref(database, `/${sloganKey}`);
         remove(dbRef);
-        console.log(mottoKey)
     }
 
+    // useEffect to get results from firebase and display to the page
     useEffect(() => {
         const database = getDatabase(firebase);
         const dbRef = ref(database);
         onValue(dbRef, (response) => {
-            const mottoList = [];
+            const sloganList = [];
             const data = response.val();
             for(let key in data) {
-                mottoList.push({key: key, userSearch: data[key].userSearch, theMotto: data[key].theMotto})
+                sloganList.push({key: key, userSearch: data[key].userSearch, theSlogan: data[key].theSlogan})
             }
-            setReturnedMotto(mottoList);
+            setReturnedSlogan(sloganList);
         })
         return () => {onDisconnect(dbRef)}
     }, [])
@@ -30,14 +30,14 @@ const DisplayResults = () => {
     return(
         <section className="allResults wrapper">
             <h3>New Slogan Options!</h3>
-            {returnedMotto.slice(0).reverse().map((motto) => {
+            {returnedSlogan.slice(0).reverse().map((slogan) => {
                 return(
-                    <div className="resultsContainer" key={motto.key}>
+                    <div className="resultsContainer" key={slogan.key}>
                         <div className="results">
-                            <p><span className='bold'>Store Info:</span> {motto.userSearch}</p>
-                            <p>{motto.theMotto}</p>
+                            <p><span className='bold'>Store Info:</span> {slogan.userSearch}</p>
+                            <p>{slogan.theSlogan}</p>
                         </div>
-                        <button onClick={() => {handleRemove(motto.key)}}>Remove from List</button>
+                        <button onClick={() => {handleRemove(slogan.key)}}>Remove from List</button>
                     </div>
                 )
             })}

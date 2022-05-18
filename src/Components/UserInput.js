@@ -4,29 +4,28 @@ import ErrorPopup from './ErrorPopup';
 const UserInput = (props) => {
 
     const [userInput, setUserInput] = useState('');
-    // const [searchTerm, setSearchTerm] = useState('')
     const [promptError, setPromptError] = useState(false);
-    // const [alphaError, setAlphaError] = useState(false);
     const [networkError, setNetworkError] = useState(false);
 
+    // Function to store the user input in state
     const handleInput = (event) => {
         setUserInput(event.target.value);
     }
  
+    // Function to set error or to call the API function
     const handleSubmit = (event) => {
         event.preventDefault();
-        // setSearchTerm(userInput);
         if(userInput.length === 0) {
             setPromptError(true)
         } else {
-            search(userInput);
+            apiSearch(userInput);
         }
     }
 
-    const search = (userQuery) => {
+    const apiSearch = (userQuery) => {
         const data = {
             prompt: `Provide a slogan for ${userQuery}`,
-            temperature: 0.5,
+            temperature: 0.8,
             max_tokens: 64,
             top_p: 1.0,
             frequency_penalty: 0.0,
@@ -43,35 +42,38 @@ const UserInput = (props) => {
         })
             .then(res => {
                 if(res.statusText === 'OK') {
+                    // setPromptError(false)
                     return res.json()
                 } else {
                     throw new Error();
                 }
             }).catch(error => {
-                setNetworkError(true);
+                if(error) {
+                    setNetworkError(true);
+                }
             })
-            // .then(res => res.json())
             .then(jsonRes => {
                 props.resultsArray({
                     userSearch: userQuery,
-                    theMotto: jsonRes.choices[0].text
+                    theSlogan: jsonRes.choices[0].text
                 })
             })
     }
-
+   
     return(
         <main>
             <section className='userInput wrapper'>
-                <h2>How to Use</h2>
+                <h2 id='howTo'>How to Use</h2>
                 <p>Enter some information about your store below and click the search button. A list will appear with some suggested slogans! Feel free to mull them over - the results will be here when you come back. You can also remove any you do not like.</p>
 
                 <form onSubmit={handleSubmit}>
-                    <label className='sr-only'htmlFor="userInput">Store Info Here:</label>
+                    <label className='sr-only'htmlFor='userInput'>Enter your store info here:</label>
                     <textarea onChange={handleInput} id='userInput' value={userInput} placeholder='i.e. a sneaker store that only sells Air Jordans' rows={5}></textarea>
-                    <button className='searchButton'>Search</button>
+                    <button className='searchButton' type='submit'>Search</button>
                 </form>
             </section>
 
+            {/* Error popup */}
             <section className='errors wrapper'>
                 <ErrorPopup promptError={promptError} setPromptError={setPromptError} networkError={networkError} setNetworkError={setNetworkError} />
             </section>
