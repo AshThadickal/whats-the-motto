@@ -32,8 +32,6 @@ const UserInput = (props) => {
             presence_penalty: 0.0,
         };
 
-        console.log(process.env.REACT_APP_OPENAI_SECRET)
-
         fetch('https://api.openai.com/v1/engines/text-curie-001/completions', {
             method: 'POST',
             headers: {

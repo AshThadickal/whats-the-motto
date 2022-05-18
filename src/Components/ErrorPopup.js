@@ -15,12 +15,6 @@ const ErrorPopup = ({promptError, networkError, setPromptError, setNetworkError}
                             <button className="closePopup" onClick={() => { setNetworkError(false); }}>Close</button>
                         </div>
                     </div>;
-    
-    
-    
-    
-    
-
     return (
         <>
             {promptError && noPrompt}
