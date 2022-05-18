@@ -41,7 +41,7 @@ const UserInput = (props) => {
             body: JSON.stringify(data)
         })
             .then(res => {
-                if(res.statusText === 'OK') {
+                if(res.status === 200) {
                     return res.json()
                 } else {
                     throw new Error();
