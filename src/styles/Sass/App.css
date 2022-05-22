@@ -223,8 +223,7 @@ html {
 }
 
 body {
-  background-image: url(../../Assets/background.jpg);
-  background-position: center;
+  background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url(../../Assets/background.jpg);
   background-size: cover;
 }
 
@@ -254,23 +253,38 @@ html {
   font-size: 125%;
 }
 
+header .headerImage img {
+  margin: 15px;
+}
 header h1 {
   font-size: 3.5rem;
   text-align: center;
+  margin-top: 0%;
 }
 header .skipTo {
   left: 50%;
   position: absolute;
   transform: translateY(-100%);
-  transition: transform 0.3s;
+  transition: transform 0.5s;
 }
 header .skipTo:focus {
   transform: translateY(0%);
 }
 header p {
   font-size: 1.5rem;
+  margin-bottom: 100px;
 }
 
+.userInput {
+  border: 1px solid black;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: -4px 4px black;
+  padding: 30px;
+  padding-top: 10px;
+}
 .userInput h2 {
   font-size: 2.5rem;
   margin-bottom: 0px;
@@ -279,6 +293,7 @@ header p {
   font-size: 1.2rem;
 }
 .userInput form {
+  position: relative;
   display: flex;
   flex-direction: column;
 }
@@ -381,4 +396,69 @@ header p {
   width: 60%;
   text-align: center;
   border: 3px solid rgb(226, 9, 237);
+}
+
+.loadingAnimation {
+  position: absolute;
+  width: 100%;
+  z-index: 999;
+}
+.loadingAnimation .loadingBar {
+  position: relative;
+  height: 10px;
+  width: 40%;
+  border: 10px solid rgb(226, 9, 237);
+  border-radius: 15px;
+  margin: 50px auto;
+}
+.loadingAnimation .loadingBar .loadingProgress {
+  position: absolute;
+  top: -4.5px;
+  left: 1px;
+  background-color: #ffffff;
+  width: 0px;
+  height: 10px;
+  border-radius: 15px;
+  -webkit-animation: progress 1500ms infinite linear;
+          animation: progress 1500ms infinite linear;
+}
+.loadingAnimation .loadingBar .loadingText {
+  text-align: center;
+  margin-top: 20px;
+}
+
+@-webkit-keyframes progress {
+  0% {
+    width: 0%;
+  }
+  25% {
+    width: 50%;
+  }
+  50% {
+    width: 75%;
+  }
+  75% {
+    width: 85%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+  25% {
+    width: 50%;
+  }
+  50% {
+    width: 75%;
+  }
+  75% {
+    width: 85%;
+  }
+  100% {
+    width: 100%;
+  }
 }/*# sourceMappingURL=App.css.map */

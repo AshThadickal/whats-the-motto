@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import ErrorPopup from './ErrorPopup';
+import Loading from './Loading';
 
-const UserInput = (props) => {
+const UserInput = ({resultsArray}) => {
 
     const [userInput, setUserInput] = useState('');
     const [promptError, setPromptError] = useState(false);
     const [networkError, setNetworkError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     // Function to store the user input in state
     const handleInput = (event) => {
@@ -18,6 +20,7 @@ const UserInput = (props) => {
         if(userInput.length === 0) {
             setPromptError(true)
         } else {
+            setIsLoading(true);
             apiSearch(userInput);
         }
     }
@@ -42,18 +45,18 @@ const UserInput = (props) => {
         })
             .then(res => {
                 if(res.status === 200) {
+                    setIsLoading(false)
                     return res.json()
                 } else {
                     throw new Error();
                 }
             }).catch(error => {
-                console.log(error)
                 if(error) {
                     setNetworkError(true);
                 }
             })
             .then(jsonRes => {
-                props.resultsArray({
+                resultsArray({
                     userSearch: userQuery,
                     theSlogan: jsonRes.choices[0].text
                 })
@@ -70,8 +73,12 @@ const UserInput = (props) => {
                     <label className='sr-only'htmlFor='userInput'>Enter your store info here:</label>
                     <textarea onChange={handleInput} id='userInput' value={userInput} placeholder='i.e. a sneaker store that only sells Air Jordans' rows={5}></textarea>
                     <button className='searchButton' type='submit'>Search</button>
+
+                    {isLoading ? <Loading /> : null}
                 </form>
+
             </section>
+                
 
             {/* Error popup */}
             <section className='errors wrapper'>

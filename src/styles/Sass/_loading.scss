@@ -1,0 +1,52 @@
+.loadingAnimation {
+        position: absolute;
+        width: 100%;
+        z-index: 999;
+
+        .loadingBar {
+                position: relative;
+                height: 10px;
+                width: 40%;
+                border: 10px solid rgb(226, 9, 237);
+                border-radius: 15px;
+                margin: 50px auto;
+        
+                .loadingProgress {
+                    position: absolute;
+                    top: -4.5px;
+                    left: 1px;
+                    background-color: #ffffff;
+                    width: 0px;
+                    height: 10px;
+                    border-radius: 15px;
+                    animation: progress 1500ms infinite linear;
+                }
+        
+                .loadingText {
+                    text-align: center;
+                    margin-top: 20px;
+                }
+    }
+}
+
+@keyframes progress {
+    0% {
+        width: 0%;
+    }
+
+    25% {
+        width: 50%;
+    }
+
+    50% {
+        width: 75%;
+    }
+
+    75% {
+        width: 85%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
